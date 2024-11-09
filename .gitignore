@@ -1,6 +1,7 @@
 Debug
 Release
 build
+cmake-build
 
 CppSkeleton
 TestSkeleton

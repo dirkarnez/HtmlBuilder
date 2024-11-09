@@ -34,17 +34,18 @@ else (MSVC)
     set(CPPLINT_ARG_OUTPUT      "--output=eclipse")
     set(CPPCHECK_ARG_TEMPLATE   "--template=gcc")
     set(DEV_NULL                "/dev/null")
-    set(SYSTEM_LIBRARIES        "rt")
+    # set(SYSTEM_LIBRARIES        "rt")
 
     # C++11 :
     add_compile_options(-std=c++0x) # equivalent to "-std=c++11" but backward compatible for GCC 4.6 on Travic-CI
+    
     # Stack protection
-    add_compile_options(-fstack-protector-all)
+    # add_compile_options(-fstack-protector-all)
     
     if (CMAKE_COMPILER_IS_GNUCXX)
         # GCC flags
         # For stacktraces:
-        add_compile_options(-rdynamic -fstack-protector-all)
+        # add_compile_options(-rdynamic -fstack-protector-all)
         # Enable maximum of Warnings :
         add_compile_options(-Wall -Wextra -Wswitch-default -Wswitch-enum -Winit-self -Wformat-security -Wfloat-equal -Wcast-qual -Wconversion -Wlogical-op -Winline)
         if (CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL "4.9" OR CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "4.9")
@@ -97,7 +98,7 @@ include_directories("${PROJECT_SOURCE_DIR}/include")
 # add the application executable
 add_executable(HtmlBuilder_example ${headers_files} ${doc_files} ${script_files} ${examples_files})
 target_link_libraries(HtmlBuilder_example ${SYSTEM_LIBRARIES})
-
+target_link_options(HtmlBuilder_example PRIVATE "-static")
 
 # Optional additional targets:
 
